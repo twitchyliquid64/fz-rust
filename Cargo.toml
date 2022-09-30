@@ -1,0 +1,23 @@
+[package]
+authors = ["twitchyliquid64"]
+name = "fz-rust"
+version = "0.1.0"
+edition = "2021"
+autobins = false
+autoexamples = false
+autotests = false
+autobenches = false
+
+[lib]
+crate-type = ["staticlib"]
+bench = false
+test = false
+
+[dependencies]
+flipperzero = "0.1.0"
+flipperzero-sys = "0.1.0"
+
+[profile.release]
+opt-level = "z"
+panic = "abort"
+lto = true

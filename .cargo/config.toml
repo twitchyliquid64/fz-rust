@@ -1,0 +1,27 @@
+[target.'cfg(all(target_arch = "arm", target_os = "none"))']
+rustflags = [
+  "-g",
+  #"-C", "target-feature=+long-calls",
+  # This is needed if your flash or ram addresses are not aligned to 0x10000 in memory.x
+  # See https://github.com/rust-embedded/cortex-m-quickstart/pull/95
+  # "-C", "link-arg=--nmagic",
+
+  "-C", "linker-flavor=gcc",
+  "-C", "linker=arm-none-eabi-gcc",
+  "-C", "link-arg=-Wl,--no-export-dynamic",
+  "-C", "link-arg=-Bsymbolic",
+  "-C", "link-arg=-mword-relocations",
+  "-C", "link-arg=-mlong-calls",
+  "-C", "link-arg=-nostartfiles",
+  "-C", "link-arg=-fno-common",
+  "-C", "link-arg=-nostdlib",
+  "-C", "link-arg=-Wl,--no-export-dynamic",
+  "-C", "link-arg=-fvisibility=hidden",
+
+  "-C", "link-arg=-Wl,--gc-sections",
+  "-C", "link-arg=-Wl,-ehello_rust_app",
+  "-C", "link-arg=-Wl,-Tmemory.x",
+]
+
+[build]
+target = "thumbv7em-none-eabihf" # Cortex-M7
